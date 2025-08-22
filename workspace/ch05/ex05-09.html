@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <style>
+      div {
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const div = document.querySelector("div");
+        div.addEventListener("click", function (event) {
+          console.log("div 클릭");
+          console.log("이벤트가 발생한 요소", event.target);
+          console.log("이벤트를 처리 중인 요소", event.currentTarget);
+        });
+
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", function (event) {
+          console.log("btn 클릭");
+          console.log("이벤트가 발생한 요소", event.target);
+          console.log("이벤트를 처리 중인 요소", event.currentTarget);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>DOM - Event 객체</h1>
+    <div>
+      <button>눌러봐</button>
+    </div>
+  </body>
+</html>

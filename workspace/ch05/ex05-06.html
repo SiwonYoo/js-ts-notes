@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const a = document.querySelector("a");
+        const img = document.querySelector("img");
+        const input = document.querySelector("input");
+
+        // 표준 속성 접근
+        // console.log(a.href);
+        // console.log(img.src);
+        // console.log(img.width);
+        // console.log(img.height);
+        // console.log(input.type);
+        // console.log(input.name);
+        // console.log(input.value);
+
+        // 비표준 속성 접근 (비추천)
+        // console.log(img.format); // undefined
+        // console.log(img.getAttribute("format")); // png
+
+        // // 커스텀 속성 접근
+        console.log(img.dataset);
+        console.log(img.dataset.age);
+        console.log(img.dataset.format);
+        console.log(img.dataset.userName);
+        img.dataset.address = "서울시";
+        console.log(img.dataset.address);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>DOM - HTML 속성 접근</h1>
+    <a href="https://samg.net/samg_contents/catch_teenieping2">클릭해봐</a>
+    <img
+      src="https://samg.net/2020/wp-content/uploads/2024/06/사랑의-하츄핑_메인-포스터_KB-640x914.jpg"
+      width="160"
+      format="png"
+      data-age="6"
+      data-user-name="커스텀핑"
+    />
+    <input type="text" name="userName" />
+  </body>
+</html>

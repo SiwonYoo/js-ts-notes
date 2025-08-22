@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List App</title>
+  </head>
+  <body>
+    <header>
+      <h1>Todo List - 목록 조회 :)</h1>
+    </header>
+
+    <div>
+      <h2>쇼핑 목록</h2>
+      <div class="todoinput">
+        <input type="text" autofocus onkeyup="handelKeyup(event)"" />
+        <button type="button" onclick="handleAdd()">추가</button>
+        <ul class="todolist">
+          <!-- 할 일 추가 -->
+        </ul>
+      </div>
+    </div>
+
+    <footer>
+      <p>멋쟁이 사자처럼 FrontEnd BootCamp</p>
+    </footer>
+
+    <script>
+      function handelKeyup(event) {
+        if (event.key === "Enter") handleAdd();
+      }
+
+      function handleAdd() {
+        const inputElem = document.querySelector(".todoinput > input");
+        if (inputElem.value.trim() !== "") {
+          addItem(inputElem.value.trim());
+          inputElem.value = "";
+          inputElem.focus();
+        }
+      }
+
+      function addItem(title) {
+        const todoList = document.querySelector(".todolist");
+
+        const item = {
+          no: todoList.children.length + 1,
+          title,
+          done: false,
+        };
+
+        const todoLi = getTodoItemElem(item);
+        todoList.appendChild(todoLi);
+      }
+
+      function getTodoItemElem(item) {
+        const liElem = document.createElement("li");
+        const noElem = document.createElement("span");
+        const titleElem = document.createElement("span");
+        const deleteElem = document.createElement("button");
+
+        const noTxt = document.createTextNode(item.no);
+        const titleTxt = document.createTextNode(item.title);
+        const deleteTxt = document.createTextNode("삭제");
+
+        noElem.appendChild(noTxt);
+        titleElem.appendChild(titleTxt);
+        deleteElem.appendChild(deleteTxt);
+        deleteElem.setAttribute("type", "button");
+
+        liElem.appendChild(noElem);
+        liElem.appendChild(titleElem);
+        liElem.appendChild(deleteElem);
+
+        liElem.dataset.no = item.no;
+        liElem.dataset.done = item.done;
+
+        deleteElem.addEventListener("click", function (event) {
+          const btn = event.target;
+          const liNode = btn.closest("li");
+          deleteItem(liNode.dataset.no);
+        });
+
+        titleElem.addEventListener("click", function (event) {
+          const titleEl = event.target;
+          const liNode = titleEl.closest("li");
+          toggleDone(liNode.dataset.no);
+        });
+
+        return liElem;
+      }
+
+      function deleteItem(no) {
+        const targetLi = document.querySelector(
+          `.todolist > li[data-no="${no}"]`
+        );
+        targetLi.remove();
+      }
+
+      function toggleDone(no) {
+        const targetLi = document.querySelector(
+          `.todolist > li[data-no="${no}"]`
+        );
+        const done = targetLi.dataset.done === "true";
+        const titleEl = targetLi.querySelector("span:last-of-type");
+
+        if (done) {
+          titleEl.appendChild(titleEl.firstChild.firstChild);
+          titleEl.firstChild.remove();
+        } else {
+          const sElem = document.createElement("s");
+          sElem.appendChild(titleEl.firstChild);
+          titleEl.appendChild(sElem);
+        }
+        targetLi.dataset.done = !done;
+      }
+    </script>
+  </body>
+</html>

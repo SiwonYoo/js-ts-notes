@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쇼핑 목록</title>
+  </head>
+  <body>
+    <h1>쇼핑 목록</h1>
+    <p>마트에서 사야할 목록</p>
+    <ul id="purchases" class="list">
+      <li>두부</li>
+      <li>계란</li>
+      <li>라면</li>
+    </ul>
+
+    <!-- module 방식으로 불러오면 다른 모듈의 변수에 접근할 수 없음 -->
+    <script type="module" src="ex05-01-02.js"></script>
+    <script type="module" src="ex05-01-03.js"></script>
+    <script type="module" src="ex05-01-04.js"></script>
+
+    <script>
+      // id가 "purchase"인 요소노드를 찾음
+      const purchases = document.getElementById("purchases");
+      // 제일 먼저 구매해야 할 항목은 무엇인가?
+      // id를 하나씩 붙이는건 비효율적: 태그로 찾기
+      const liList = document.getElementsByTagName("li");
+      console.log(liList);
+      const firstLi = liList[0].firstChild; // 첫번째 <li>
+      // const firstLi = purchases.firstElementChild;
+      console.log(firstLi);
+
+      // 첫번째 구매할 항목을 양파로 수정
+      const firstTextNode = firstLi.firstChild;
+      // firstTextNode.nodeValue = "양파";
+
+      // 마지막으로 사야할 품목(라면) 출력
+      console.log(purchases.lastElementChild.firstChild.nodeValue);
+
+      // class로 찾아오기
+      const shoppingList = document.getElementsByClassName("list");
+      console.log(shoppingList);
+      const firstLi2 = shoppingList.firstElementChild;
+      console.log(firstLi2);
+      // const firstTextNode2 = firstLi2.firstChild;
+      // console.log(firstTextNode2);
+
+      // querySelector: 마지막으로 사야할 품목 출력
+      console.log(
+        document.querySelector(".list > li:last-child").firstChild.nodeValue
+      );
+    </script>
+  </body>
+</html>

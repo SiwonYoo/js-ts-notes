@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BOM</title>
+    <script type="module" src="./ex05-16.js"></script>
+    <style>
+      .info-box {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+      }
+      button {
+        margin: 5px;
+        padding: 5px 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>location 객체</h1>
+
+    <div class="info-box">
+      <h3>현재 URL 정보</h3>
+      <pre id="urlInfo"></pre>
+    </div>
+
+    <div class="info-box">
+      <h3>URL 조작</h3>
+      <button id="testAssign">Google로 이동 (assign)</button>
+      <button id="testHref">Daum으로 이동 (href)</button>
+      <button id="testReplace">Naver로 이동 (replace)</button>
+      <button id="testReload">페이지 새로고침</button>
+      <input type="text" />
+    </div>
+
+    <div class="info-box">
+      <h3>호스트네임 변경</h3>
+      <button id="changeHostname">example.com으로 변경</button>
+    </div>
+
+    <div class="info-box">
+      <h3>URL 파라미터 추가</h3>
+      <button id="addParameter">파라미터 추가</button>
+    </div>
+  </body>
+</html>

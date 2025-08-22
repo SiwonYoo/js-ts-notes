@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+    <style>
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin: 10px 0;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        position: relative; /* 애니메이션의 기준점 설정 */
+      }
+      .moving {
+        transition: transform 0.3s ease; /* 0.3초 동안 부드러운 이동 효과 */
+      }
+      button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 1.2em;
+        padding: 0;
+        margin-left: 2px;
+      }
+      span {
+        flex: 1;
+      }
+    </style>
+    <script>
+      /*
+                    1. 코드의 전체 구조는 수정하지 말고, '작성하세요' 부분만 실제 코드로 작성하여 제출하세요.
+                    2. 각 '작성하세요' 항목은 6점씩 배점됩니다. 기능이 동작하지 않거나 에러가 발생해도, 순서에 상관없이 알고 있는 부분만 작성해서 제출하세요.
+                    3. 배우지 않은 내용으로 작성할 경우 해당 항목은 오답 처리됩니다.
+                  */
+
+      // TODO 1. DOM이 완전히 로드된 후 실행할 이벤트 핸들러 등록
+      document.addEventListener("DOMContentLoaded", () => {
+        // TODO 2. data-direction 속성을 가진 모든 버튼 찾기
+        const buttons = document.querySelectorAll("button[data-direction]");
+        for (const button of buttons) {
+          // TODO 3. 버튼 클릭 이벤트 핸들러 등록
+          button.addEventListener("click", (event) => {
+            // TODO 4. moveItem 함수 호출
+            moveItem(event.target);
+          });
+        }
+      });
+
+      /**
+       * 버튼 클릭시 항목을 위/아래로 이동시키는 함수
+       * @param {HTMLElement} btn - 클릭된 버튼 요소
+       */
+      function moveItem(btn) {
+        console.log(btn, "버튼 클릭");
+        // TODO 5. 이동할 항목(클릭한 버튼의 부모 li)과 그 부모(ul) 요소 찾기
+        const targetLi = btn.closest("li");
+        const ul = targetLi.closest("ul");
+        // TODO 6. 이동 방향 찾기(up/down)
+        const direction = btn.dataset.direction;
+        if (direction === "up") {
+          // TODO 7. targetLi의 이전 형제 요소 찾기
+          const prevLi = targetLi.previousElementSibling;
+          if (prevLi) {
+            animateSwap(targetLi, prevLi, () => {
+              // TODO 8. targetLi를 prevLi 앞에 삽입
+              ul.insertBefore(targetLi, prevLi);
+            });
+          }
+        } else {
+          // TODO 9. targetLi의 다음 형제 요소 찾기
+          const nextLi = targetLi.nextElementSibling;
+          if (nextLi) {
+            animateSwap(targetLi, nextLi, () => {
+              // TODO 10. nextLi를 targetLi 앞에 삽입
+              ul.insertBefore(nextLi, targetLi);
+            });
+          }
+        }
+      }
+
+      /**
+       * 두 요소의 위치를 애니메이션으로 교체하는 함수
+       * 애니메이션이 끝나면 li 요소가 원래 위치로 돌아가므로 실제 li 위치를 변경하는 moveItem 함수를 콜백함수로 전달해야 함
+       * @param {HTMLElement} element1 - 첫 번째 요소
+       * @param {HTMLElement} element2 - 두 번째 요소
+       * @param {Function} callback - 애니메이션 완료 후 실행할 콜백 함수
+       */
+      function animateSwap(element1, element2, callback) {
+        // 현재 각 요소의 위치 정보를 가져옴
+        const rect1 = element1.getBoundingClientRect();
+        const rect2 = element2.getBoundingClientRect();
+        // 두 요소 사이의 수직 거리 계산
+        const distance = rect2.top - rect1.top;
+
+        // 애니메이션을 위한 클래스 추가
+        // .moving 클래스는 transition 속성을 가지고 있어 부드러운 이동 효과를 줌
+        element1.classList.add("moving");
+        element2.classList.add("moving");
+
+        // transform으로 요소 이동
+        // 첫 번째 요소는 아래로, 두 번째 요소는 위로 이동
+        element1.style.transform = `translateY(${distance}px)`;
+        element2.style.transform = `translateY(${-distance}px)`;
+
+        // 애니메이션 완료(300ms) 후 처리
+        setTimeout(() => {
+          // 애니메이션 관련 스타일 초기화
+          element1.classList.remove("moving");
+          element2.classList.remove("moving");
+          element1.style.transform = "";
+          element2.style.transform = "";
+
+          // 실제 DOM 위치 변경을 위한 콜백 함수 실행
+          callback();
+        }, 300);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Todo List</h1>
+    <ul>
+      <li>
+        <span>내장 함수</span>
+        <button data-direction="up">⬆️</button>
+        <button data-direction="down">⬇️</button>
+      </li>
+      <li>
+        <span>Ajax 프로그래밍</span>
+        <button data-direction="up">⬆️</button>
+        <button data-direction="down">⬇️</button>
+      </li>
+      <li>
+        <span>Web APIs</span>
+        <button data-direction="up">⬆️</button>
+        <button data-direction="down">⬇️</button>
+      </li>
+    </ul>
+  </body>
+</html>

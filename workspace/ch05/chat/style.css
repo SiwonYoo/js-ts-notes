@@ -1,0 +1,220 @@
+/* 토스 스타일 CSS - 파스텔 퍼플 테마 */
+:root {
+  --primary: #a78bfa;
+  --primary-light: #c4b5fd;
+  --primary-dark: #8b5cf6;
+  --secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
+  --background: #ffffff;
+  --border: #e5e7eb;
+  --shadow: rgba(0, 0, 0, 0.05);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font-main: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Pretendard Variable", Pretendard, Roboto, "Noto Sans KR", "Segoe UI",
+    "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--background);
+  color: var(--text-primary);
+  line-height: 1.5;
+  padding: 24px;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--primary-dark);
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  font-size: 16px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+input[type="text"]:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(167, 139, 250, 0.2);
+}
+
+input[type="text"]::placeholder {
+  color: var(--text-tertiary);
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-bottom: 12px;
+  margin-right: 8px;
+}
+
+button:hover {
+  background-color: var(--primary-dark);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* 채팅방 관련 스타일 */
+.chat-container {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+
+.room-section,
+.join-section,
+.message-section {
+  background-color: var(--secondary);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--primary-dark);
+}
+
+.input-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.input-group input {
+  flex: 1;
+  min-width: 120px;
+  margin-bottom: 0;
+}
+
+.room-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px;
+  background-color: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.room-info span {
+  font-weight: 600;
+  color: var(--primary);
+  margin-left: 8px;
+}
+
+.button-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.message-input {
+  display: flex;
+  gap: 8px;
+}
+
+.message-input input {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.message-input button {
+  margin-bottom: 0;
+}
+
+/* 채팅 메시지 표시 영역 */
+.chat-messages {
+  height: 300px;
+  overflow-y: auto;
+  background-color: white;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.message {
+  margin-bottom: 12px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  max-width: 80%;
+}
+
+.message.received {
+  background-color: var(--secondary);
+  align-self: flex-start;
+}
+
+.message.sent {
+  background-color: var(--primary-light);
+  color: var(--text-primary);
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.message .nickname {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.message .content {
+  word-break: break-word;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+  body {
+    padding: 16px;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group input {
+    width: 100%;
+  }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+    margin-right: 0;
+  }
+}

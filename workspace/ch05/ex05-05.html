@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo List</title>
+  </head>
+  <body>
+    <div id="todo">
+      <header>
+        <h1>Todo List - 목록 조회 :)</h1>
+      </header>
+      <div id="main">
+        <div id="container">
+          <h2>쇼핑 목록</h2>
+          <div class="todoinput">
+            <!-- event: event 정보를 가지고 있음 -->
+            <input type="text" autofocus onkeyup="handlekeyup(event)" />
+            <!-- <input type="text" autofocus onkeyup="console.log(event)" /> -->
+            <button type="button" onclick="handleAdd()">추가</button>
+          </div>
+          <ul class="todolist">
+            <!-- <li data-no="1">
+              <span>1</span>
+              <span><s>샘플1</s></span>
+              <button type="button">삭제</button>
+            </li> -->
+          </ul>
+        </div>
+      </div>
+      <footer>
+        <p>멋쟁이 사자처럼 FrontEnd BootCamp</p>
+      </footer>
+    </div>
+
+    <script>
+      // 한 건의 Todo 객체를 받아서 DOM 객체로 만들어 반환
+      function getTodoItemElem(item) {
+        // { no: 3, title: '할 일', done: true } // Todo 객체 (input)
+        /* DOM 객체 (output)
+                <li>
+                  <span>3</span>
+                  <span>샘플3</span>
+                  <button type="button">삭제</button>
+                </li>
+              */
+
+        // createElement
+        // <li>
+        const liElem = document.createElement("li");
+        // <span>
+        const noElem = document.createElement("span");
+        // <span>
+        const titleElem = document.createElement("span");
+        // <button>
+        const deletElem = document.createElement("button");
+
+        // createTextNode
+        // 3
+        const noTxt = document.createTextNode(item.no);
+        // 샘플3
+        const titleTxt = document.createTextNode(item.title);
+        // 삭제
+        const deleteTxt = document.createTextNode("삭제");
+
+        // <span>3</span>
+        noElem.appendChild(noTxt);
+        // <span>샘플3</span>
+        titleElem.setAttribute("tabindex", 0);
+        titleElem.appendChild(titleTxt);
+        // <button type="button">삭제</button>
+        deletElem.setAttribute("type", "button"); // type="button" 속성 추가
+        deletElem.append(deleteTxt);
+
+        // <li> <span>3</span> </li>
+        liElem.appendChild(noElem);
+        // <li> <span>3</span> <span>샘플3</span> </li>
+        liElem.appendChild(titleElem);
+        // <li> <span>3</span> <span>샘플3</span> <button type="button">삭제</button> </li>
+        liElem.appendChild(deletElem);
+
+        // custom 속성
+        // <li data-no="3">
+        // elem.dataset.no -> 3
+
+        // 속성 추가하기
+        // 방법 1. setAttribute()
+        // liElem.setAttribute("data-no", item.no);
+        // liElem.setAttribute("data-done", "true");
+        // 방법 2. .data.
+        liElem.dataset.no = item.no;
+        liElem.dataset.done = item.done;
+
+        // 삭제 이벤트 등록(1. 2.)
+        // 1. deleteItem에 매개변수(지울 no)를 보내야 하기 때문에 function(){} 안에 넣어야 함
+        deletElem.addEventListener("click", function () {
+          // 클릭 이벤트가 발생한 요소
+          // const btn = event.target;
+          // 1-1. parentNode 사용
+          // 부모 노드(li)의 no를 deleteItem의 매개변수로 넘겨줌
+          // parentNode는 부모요소 때만 사용 가능
+          // deleteItem(btn.parentNode.dataset.no);
+          // 1-2. closest() 메서드 사용
+          // btn의 조상 중 셀렉터와 일치하는 가장 가까운 조상 찾기
+          // const liNode = btn.closest("li");
+          // deleteItem(liNode.dataset.no);
+          // 1-3. 클로저 단원
+          // deleteItem(item.no);
+        });
+        // 2. setAttribute를 이용해서 deletElem에 script 속성 추가하기
+        deletElem.setAttribute("onclick", `deleteItem(${item.no})`);
+
+        // 완료/미완료 처리
+        // 1. addEventListener
+        // titleElem.addEventListener("click", function (event) {
+        //   const btn = event.target; // 클릭 이벤트가 발생한 요소 (<button>)
+        //   const liNode = btn.closest("li");
+        //   toggleDone(liNode.dataset.no);
+        // });
+        // 2. setAttribute
+        titleElem.setAttribute("onclick", `toggleDone(${item.no})`);
+
+        // <li>
+        //   <span>3</span>
+        //   <span>샘플3</span>
+        //   <button type="button">삭제</button>
+        // </li>
+        return liElem;
+      }
+
+      // "추가" 버튼 클릭이벤트 핸들러
+      function handleAdd() {
+        const inputElem = document.querySelector(".todoinput > input");
+
+        // <input>, <select> 같은 폼의 입력 요소는 value 속성으로 사용자가 입력/선택한 값이 저장되어 있음
+        if (inputElem.value.trim() !== "") {
+          addItem(inputElem.value);
+          inputElem.value = ""; // input 비우기
+          inputElem.focus(); // 버튼 -> input으로 focus 옮기기
+        }
+      }
+
+      // 엔터 키를 눌렀을 때
+      // 누를 때: keydown | 키보드에서 뗄 때: keyup
+      function handlekeyup(event) {
+        // 키보드 이벤트 정보를 가지고 있는 Event 객체
+        // console.log(event);
+
+        // eventk.key가 Enter이면 handleAdd() 호출
+        if (event.key === "Enter") handleAdd();
+      }
+
+      // 할 일 추가
+      function addItem(title) {
+        const todoList = document.querySelector(".todolist");
+
+        const item = {
+          // children: 자식노드의 목록(요소노드)
+          no: todoList.children.length + 1, //todoList : ul 요소 (길이가 없음) //todoList.children : 유사배열객체. length 사용 가능
+          // no: document.querySelectorAll('.todoList > li').length +1, // li를 모두 꺼내서 세는 방법
+          // title: title, // 속성값을 담는 변수가 속성명과 일치할 경우 속성값 생략 가능
+          title,
+          done: false, // 미완료 상태
+        };
+        const todoLi = getTodoItemElem(item);
+        console.log(todoLi);
+
+        todoList.appendChild(todoLi);
+      }
+
+      // 완료/미완료 처리 - 내가 만든 코드
+
+      // function toggleDone(no) {
+      //   const targetLi = document.querySelector(`li[data-no="${no}"]`); // li 뽑아옴 // <li><span>...</span>...</li>
+      //   const targetTitleElem = targetLi.querySelector(`span:nth-child(2)`); // titleElem 뽑아옴 // <span>sample</span>
+      //   const targetTitleTxt = targetTitleElem.firstChild; // 텍스트 뽑아옴 // sample
+      //   const sElem = document.createElement("s"); // <s> 태그 만들기
+
+      //   sElem.appendChild(targetTitleTxt); // <s>sample</s>
+      //   targetTitleElem.appendChild(sElem);
+      // }
+
+      // function toggleDone(no) {
+      //   const targetLi = document.querySelector(`li[data-no="${no}"]`); // li 뽑아옴 // <li><span>...</span>...</li>
+      //   console.log(!!targetLi.dataset.done);
+      //   const titleElem = targetLi.querySelector(`span:nth-child(2)`); // titleElem 뽑아옴 // <span>sample</span>
+
+      //   if (targetLi.dataset.done === "true") {
+      //     const getSElem = targetLi.querySelector(`span:nth-child(2) s`);
+      //     const titleTxt = getSElem.firstChild; // 텍스트 뽑아옴 // sample
+      //     console.log(titleTxt);
+      //     titleElem.appendChild(titleTxt); // titleTxt 이동
+      //     titleElem.firstChild.remove();
+      //     targetLi.dataset.done = "false";
+      //   } else {
+      //     const titleTxt = titleElem.firstChild; // 텍스트 뽑아옴 // sample
+      //     const sElem = document.createElement("s"); // <s> 태그 만들기
+      //     sElem.appendChild(titleTxt);
+      //     titleElem.appendChild(sElem);
+      //     targetLi.dataset.done = "true";
+      //   }
+      // }
+
+      // 완료/미완료 처리 - 강사님 코드
+      function toggleDone(no) {
+        const targetLi = document.querySelector(
+          `.todolist > li[data-no="${no}"]`
+        );
+        const done = targetLi.dataset.done === "true"; // boolean으로 변환
+        const titleEl = targetLi.querySelector("span:last-of-type"); // span인 자식들 중 마지막
+
+        if (done) {
+          // done이 true라면 <span><s>샘플3</s></span> -> <span>샘플3</span>로 수정
+          titleEl.appendChild(titleEl.firstChild.firstChild);
+          titleEl.firstChild.remove();
+        } else {
+          // done이 false라면 <span>샘플3</span> -> <span><s>샘플3</s></span>
+          const sElem = document.createElement("s"); // <s>
+          sElem.appendChild(titleEl.firstChild); // <s>샘플3</s> // 현재 <span></span> 상태(#text가 <s> 아래로 이동되어 있음
+          titleEl.appendChild(sElem); // <span><s>샘플3</s></span>
+        }
+        targetLi.dataset.done = !done;
+      }
+
+      // 할 일 삭제
+      function deleteItem(no) {
+        const targetLi = document.querySelector(`li[data-no="${no}"]`);
+        targetLi.remove();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쇼핑목록</title>
+  </head>
+  <body>
+    <button id="btn">클릭해보세요</button>
+    <script>
+      const btn = document.getElementById("btn");
+
+      btn.addEventListener("click", () => {
+        console.log("버튼이 클릭되었습니다.");
+      });
+
+      btn.addEventListener("dblclick", () => {
+        console.log("버튼이 더블클릭되었습니다.");
+      });
+
+      btn.addEventListener("contextmenu", (e) => {
+        e.preventDefault();
+        console.log("우클릭 메뉴가 열림");
+      });
+    </script>
+
+    <input type="text" id="input" placeholder="키보드를 눌러보세요" />
+    <script>
+      const input = document.getElementById("input");
+
+      input.addEventListener("keydown", (e) => {
+        console.log(`키 다운: ${e.key}`);
+      });
+
+      input.addEventListener("keyup", (e) => {
+        console.log(`키 업: ${e.key}`);
+      });
+    </script>
+
+    <form id="form">
+      <input type="text" id="name" placeholder="이름을 입력하세요" />
+      <button type="submit">제출</button>
+    </form>
+    <script>
+      const form = document.getElementById("form");
+      const nameInput = document.getElementById("name");
+
+      nameInput.addEventListener("focus", () => {
+        console.log("입력창에 포커스됨");
+      });
+
+      nameInput.addEventListener("input", () => {
+        console.log(`현재 값: ${nameInput.value}`);
+      });
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        console.log("폼이 제출됨");
+      });
+    </script>
+
+    <div style="height: 2000px"></div>
+    <script>
+      window.addEventListener("scroll", () => {
+        console.log("스크롤 중...");
+      });
+    </script>
+
+    <script>
+      window.addEventListener("load", () => {
+        console.log("모든 리소스 로드 완료");
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("HTML 파싱 완료");
+      });
+
+      window.addEventListener("beforeunload", (e) => {
+        e.preventDefault();
+        e.returnValue = "";
+      });
+
+      window.addEventListener("unload", () => {
+        console.log("페이지 떠남");
+      });
+    </script>
+
+    <select id="select">
+      <option value="apple">사과</option>
+      <option value="banana">바나나</option>
+      <option value="grape">포도</option>
+    </select>
+
+    <script>
+      const select = document.getElementById("select");
+
+      select.addEventListener("change", () => {
+        console.log(`선택된 과일: ${select.value}`);
+      });
+    </script>
+
+    <div
+      id="area"
+      style="
+        width: 300px;
+        height: 200px;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+      "
+    >
+      이 영역 위에 마우스를 움직여보세요
+    </div>
+
+    <script>
+      const area = document.getElementById("area");
+
+      area.addEventListener("mousemove", (e) => {
+        console.log(`마우스 위치: X=${e.offsetX}, Y=${e.offsetY}`);
+      });
+    </script>
+
+    <div
+      id="box"
+      style="
+        width: 200px;
+        height: 100px;
+        background: #ddd;
+        text-align: center;
+        line-height: 100px;
+      "
+    >
+      마우스를 올려보세요
+    </div>
+
+    <script>
+      const box = document.getElementById("box");
+
+      box.addEventListener("mouseover", () => {
+        box.style.backgroundColor = "lightblue";
+        console.log("마우스 진입");
+      });
+
+      box.addEventListener("mouseout", () => {
+        box.style.backgroundColor = "#ddd";
+        console.log("마우스 나감");
+      });
+    </script>
+
+    <!-- 
+    <button>button</button>
+
+    <p>보고싶은 영화 목록</p>
+    <ul id="movies" class="list">
+      <li>어벤져스</li>
+      <li>다크나이트</li>
+      <li>미션임파서블</li>
+    </ul>
+
+    <script>
+      const btn = document.querySelector("button");
+
+      btn.onclick = function () {
+        const movies = document.querySelector("#movies");
+        console.log(movies);
+        // const cloneLi = movies.firstElementChild.cloneNode(true);
+        // console.log(cloneLi);
+        // movies.appendChild(cloneLi);
+
+        const cloneLi2 = movies.firstElementChild.cloneNode();
+        console.log(cloneLi2);
+        movies.appendChild(cloneLi2);
+      };
+    </script> -->
+  </body>
+</html>

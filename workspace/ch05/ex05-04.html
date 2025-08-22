@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이벤트 등록 방식</title>
+    <script></script>
+  </head>
+  <body>
+    <h1>이벤트 등록 방식</h1>
+    <div>
+      <button onclick="console.log('눌렀지');">눌러봐</button>
+      <!-- 아래 함수가 생성됨
+      btn.onclick = function() {
+        console.log("눌렀지");
+      };
+        -->
+    </div>
+    <script>
+      const btn = document.querySelector("button");
+      // 이벤트 등록 방법 1: elem.on<event> 속성에 이벤트 핸들러 추가
+      btn.onclick = function () {
+        // 위에서 만든 btn.onclick을 덮어씀
+        console.log("눌렀음");
+      };
+      btn.onclick = function () {
+        // 위에서 만든 btn.onclick을 덮어씀
+        console.log("눌렀네");
+      };
+
+      // 이벤트 등록 방법 3: addEventListener()
+      btn.addEventListener("click", function () {
+        console.log("(add)누름");
+      });
+      btn.addEventListener("click", function () {
+        console.log("(add)누름2");
+      });
+    </script>
+  </body>
+</html>

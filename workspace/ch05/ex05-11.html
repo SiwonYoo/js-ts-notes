@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <style>
+      table {
+        margin: 10px;
+        border: 1px solid blue;
+      }
+      td {
+        width: 30px;
+        padding: 10px;
+        border: 1px solid gray;
+      }
+      .red {
+        background-color: red;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const table = document.querySelector("table");
+        table.addEventListener("click", function (event) {
+          // td일 경우에만 실행 (없으면 사이 여백을 눌렀을 때 전체 배경이 칠해짐)
+          if (event.target.tagName === "TD") {
+            event.target.classList.toggle("red");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>DOM - 이벤트 위임</h1>
+    <table>
+      <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+      </tr>
+    </table>
+  </body>
+</html>

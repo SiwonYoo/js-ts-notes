@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+    <style>
+      /* CSS 클래스 정의 */
+      .pad100 {
+        padding: 100px;
+      }
+      .size30 {
+        font-size: 30px;
+      }
+      .line-through {
+        text-decoration: line-through; /* 취소선 스타일 */
+      }
+      ul {
+        margin: 10px;
+        border: blue 1px solid;
+      }
+      li {
+        border: 1px solid red;
+        margin: 10px;
+      }
+    </style>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const list = document.querySelector("ul");
+        console.log(list.className);
+        console.log(list.classList);
+
+        list.className = "good bye"; // class name 변경
+
+        // const btn = document.querySelector("button");
+        // btn.addEventListener("click", function () {
+        //   // style 객체는 인라인 스타일만 접근 가능(CSS 파일이나 <style> 태그의 스타일은 접근 안됨)
+        //   console.log(list.style.fontSize); // 아무것도 출력되지 않음
+
+        //   const computedStyle = getComputedStyle(list);
+        //   console.log(computedStyle.fontSize);
+
+        //   list.className = "pad100 size30";
+        //   console.log(computedStyle.fontSize);
+        // });
+
+        // for (let item of list.children) {
+        //   item.addEventListener("click", function (event) {
+        //     console.log("event.target", event.target); // 실제 이벤트가 발생한 요소
+
+        //     // 방법 1.
+        //     // if (event.target.classList.contains("line-through")) {
+        //     //   // 지정한 class를 가지고 있는지 여부 반환
+        //     //   event.target.classList.remove("line-through"); // line-through class 삭제
+        //     // } else {
+        //     //   // line-through 없으면
+        //     //   event.target.classList.add("line-through"); // line-throuch class 추가
+        //     // }
+
+        //     // 방법 2. toggle
+        //     event.target.classList.toggle("line-through"); // 있으면 제거 없으면 추가
+        //   });
+        // }
+
+        // 이벤트 위임
+        list.addEventListener("click", function (event) {
+          console.log("event.target: ", event.target);
+          console.log("event.currentTarget: ", event.currentTarget);
+          if (event.target.nodeName === "LI") {
+            event.target.classList.toggle("line-through"); // 있으면 제거 없으면 추가
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>DOM - class 속성 접근</h1>
+    <button>class 추가</button>
+    <ul class="hello bye">
+      <li>두부</li>
+      <li>계란</li>
+      <li>콩나물</li>
+    </ul>
+  </body>
+</html>
