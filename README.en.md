@@ -45,12 +45,25 @@ Each chapter covers essential topics with hands-on practice, including syntax ba
 
 ## Purpose
 
-- To organize and review code written during lessons
+- To organize and review examples written during lessons
 - To serve as a quick-reference for core concepts in JavaScript and TypeScript
+
+---
+
+## Reference
+
+- This content is based on material from a frontend bootcamp course.
+
+---
+
+## Notes
+
+- [Class Notes (Notion)](https://slime-fall-1f7.notion.site/178566396b51802d816bfc84abded94d?v=1b2566396b51805cb32d000cb955adf5) _(Personal study record)_
 
 ---
 
 ## Author
 
-- [Siwon](https://github.com/SiwonYoo)
-  s
+- Siwon ([GitHub](https://github.com/SiwonYoo))
+
+---

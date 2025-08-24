@@ -45,11 +45,25 @@
 
 ## 목적
 
-- 수업 중 작성한 예제를 정리하고 복습하기 위함
-- JavaScript와 TypeScript의 주요 개념들을 빠르게 참고할 수 있는 실습 자료로 활용
+- 수업 중 작성한 예제를 정리하고 복습하기 위해 작성되었습니다.
+- JavaScript와 TypeScript의 주요 개념들을 빠르게 참고할 수 있는 실습 자료로 활용됩니다.
+
+---
+
+## 참고
+
+- 본 내용은 프론트엔드 부트캠프 수업 자료를 바탕으로 정리되었습니다.
+
+---
+
+## 필기 자료
+
+- [수업 필기 (Notion)](https://slime-fall-1f7.notion.site/178566396b51802d816bfc84abded94d?v=1b2566396b51805cb32d000cb955adf5) (개인 학습 기록)
 
 ---
 
 ## 작성자
 
-- [Siwon](https://github.com/SiwonYoo)
+- 유시원, ([GitHub](https://github.com/SiwonYoo))
+
+---
